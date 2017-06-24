@@ -123,8 +123,7 @@ exit
 
 :end
 cls
-echo vBox VM System Information Modifier was created and maintained by JayMontana36;
-echo vBox VM System Information Modifier was tested by JayMontana36 and I_Like_Yo.
+echo vBox VM System Information Modifier is created and maintained by JayMontana36
 echo.
 echo Official Website: https://sites.google.com/site/jaymontana36jasen - Bookmark my website for easy access if you'd like,
 echo as I will be updating it in the future with new scripts, content, and programs.
