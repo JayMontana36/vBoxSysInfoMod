@@ -135,5 +135,5 @@ start https://sites.google.com/site/jaymontana36jasen
 goto end
 
 :yt
-start https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA/videos
+start https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA
 goto end
