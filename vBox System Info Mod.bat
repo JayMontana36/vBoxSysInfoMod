@@ -1,14 +1,14 @@
 @echo off
-TITLE VirtualBox VM System Information Modifier v4 BETA 3
+TITLE VirtualBox VM System Information Modifier v4 Final
 :init
-echo Starting VirtualBox VM System Information Modifier v4b3 by JayMontana36...
+echo Starting VirtualBox VM System Information Modifier v4 by JayMontana36...
 IF NOT EXIST "C:\Program Files\Oracle\Virtualbox" goto vBoxNotFound
 cd "C:\Program Files\Oracle\Virtualbox"
 IF NOT EXIST "VBoxManage.exe" goto vBoxNotFound
 
 :ModifyVM
 cls
-echo VirtualBox VM System Information Modifier v4b3 by JayMontana36
+echo VirtualBox VM System Information Modifier v4 by JayMontana36
 echo.
 set /p vmID="Name of the VirtualBox VM to modify: "
 set /p sysven="System Vendor (Dell, ASUS, Lenovo, ASRock, MSI, etc) to assign: "
@@ -21,7 +21,7 @@ set /p mode="Enter either EFI or BIOS: "
 
 :ModifyVMprep
 cls
-echo VirtualBox VM System Information Modifier v4b3 by JayMontana36
+echo VirtualBox VM System Information Modifier v4 by JayMontana36
 echo.
 echo Ready to modify System Info for vBox VM "%vmID%" in "%mode%" mode.
 echo System info for VM "%vmID%" will be changed to "%sysven% %sysprod%"
@@ -120,10 +120,10 @@ cls
 echo vBox VM System Information Modifier is created and maintained by JayMontana36
 echo.
 echo Official Website: https://sites.google.com/site/jaymontana36jasen - Bookmark my website for easy access if you'd like,
-echo as I will be updating it in the future with new scripts, content, and programs.
+echo as I will be updating it in the future with new scripts, content, and programs. Site - https://goo.gl/3SCLQN
 echo.
-echo YouTube: https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA/videos - Please subscribe if you haven't already, as 
-echo I'll be uploading Tutorials and other content in the future.
+echo YouTube: https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA - Please subscribe if you haven't already, as 
+echo I'll be uploading Tutorials and other content in the future. [JM36] JayMontana36 TV - https://goo.gl/aMknzL
 echo.
 echo So what do we do now? You may modify another VM by typing "modifyvm", you may view my website by typing "site", you may open my YouTube channel by typing "yt", or exit with "exit" (or of course, type something invalid to exit)
 echo.
