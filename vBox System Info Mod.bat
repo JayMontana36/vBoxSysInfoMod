@@ -1,18 +1,19 @@
 @echo off
-TITLE VirtualBox VM System Information Modifier v4 BETA 2
+TITLE VirtualBox VM System Information Modifier v4 BETA 3
 :init
-echo Starting VirtualBox VM System Information Modifier v4b2 by JayMontana36...
+echo Starting VirtualBox VM System Information Modifier v4b3 by JayMontana36...
 IF NOT EXIST "C:\Program Files\Oracle\Virtualbox" goto vBoxNotFound
 cd "C:\Program Files\Oracle\Virtualbox"
 IF NOT EXIST "VBoxManage.exe" goto vBoxNotFound
 
 :ModifyVM
 cls
-echo VirtualBox VM System Information Modifier v4b2 by JayMontana36
+echo VirtualBox VM System Information Modifier v4b3 by JayMontana36
 echo.
 set /p vmID="Name of the VirtualBox VM to modify: "
 set /p sysven="System Vendor (Dell, ASUS, Lenovo, ASRock, MSI, etc) to assign: "
 set /p sysprod="Vendor Product (Optiplex 745, Rog 8, H50-55, etc): "
+set /p sysdate="BIOS/System Build Date (in M/D/YYYY or MM/DD/YYYY): "
 echo.
 echo Does "%vmID%" run in BIOS mode or EFI mode? If you're unsure, enter BIOS.
 echo Warning! Enter EFI ONLY IF YOU'RE POSITIVE "%vmID%" runs in EFI mode.
@@ -20,10 +21,11 @@ set /p mode="Enter either EFI or BIOS: "
 
 :ModifyVMprep
 cls
-echo VirtualBox VM System Information Modifier v4b2 by JayMontana36
+echo VirtualBox VM System Information Modifier v4b3 by JayMontana36
 echo.
 echo Ready to modify System Info for vBox VM "%vmID%" in "%mode%" mode.
 echo System info for VM "%vmID%" will be changed to "%sysven% %sysprod%"
+echo BIOS/System Build Date for VM "%vmID%" will be changed to "%sysdate%"
 echo.
 echo Warning! Before continuing, please shut down any/all VirtualBox VMs!
 echo You have been warned!
@@ -57,7 +59,7 @@ echo Modifying BIOS Information for vBox "%vmID%" in BIOS Mode.
 echo ...
 VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVendor" "%sysven%"
 VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVersion" "string:%random%"
-VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSReleaseDate" "9/9/2016"
+VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSReleaseDate" "%sysdate%"
 echo Modifying BaseBoard Information for vBox "%vmID%" in BIOS Mode.
 echo ...
 VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/pcbios/0/Config/DmiBoardVendor" "%sysven%"
@@ -88,7 +90,7 @@ echo Modifying BIOS Information for vBox "%vmID%" in EFI Mode.
 echo ...
 VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/efi/0/Config/DmiBIOSVendor" "%sysven%"
 VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/efi/0/Config/DmiBIOSVersion" "string:%random%"
-VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/efi/0/Config/DmiBIOSReleaseDate" "9/9/2016"
+VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/efi/0/Config/DmiBIOSReleaseDate" "%sysdate%"
 echo Modifying BaseBoard Information for vBox "%vmID%" in EFI Mode.
 echo ...
 VBoxManage setextradata "%vmID%" "VBoxInternal/Devices/efi/0/Config/DmiBoardVendor" "%sysven%"
