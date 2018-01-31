@@ -1,7 +1,7 @@
 @echo off
-TITLE VirtualBox VM System Information Modifier v4.0.1 Final
+TITLE VirtualBox VM System Information Modifier v5 Experimental
 :init
-echo Starting VirtualBox VM System Information Modifier v4.0.1 by JayMontana36...
+echo Starting VirtualBox VM System Information Modifier v5.0 Experimental by JayMontana36...
 C:
 IF NOT EXIST "C:\Program Files\Oracle\Virtualbox" goto vBoxNotFound
 cd "C:\Program Files\Oracle\Virtualbox"
@@ -9,7 +9,7 @@ IF NOT EXIST "VBoxManage.exe" goto vBoxNotFound
 
 :ModifyVM
 cls
-echo VirtualBox VM System Information Modifier v4.0.1 by JayMontana36
+echo VirtualBox VM System Information Modifier v5.0 Experimental by JayMontana36
 echo.
 set /p vmID="Name of the VirtualBox VM to modify: "
 set /p sysven="System Vendor (Dell, ASUS, Lenovo, ASRock, MSI, etc) to assign: "
@@ -22,7 +22,7 @@ set /p mode="Enter either EFI or BIOS: "
 
 :ModifyVMprep
 cls
-echo VirtualBox VM System Information Modifier v4.0.1 by JayMontana36
+echo VirtualBox VM System Information Modifier v5.0 Experimental by JayMontana36
 echo.
 echo Ready to modify System Info for vBox VM "%vmID%" in "%mode%" mode.
 echo System info for VM "%vmID%" will be changed to "%sysven% %sysprod%"
