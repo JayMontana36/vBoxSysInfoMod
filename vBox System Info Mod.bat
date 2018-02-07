@@ -1,12 +1,13 @@
 @echo off
-:init
+:PreInit
 set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0 Experimental Alpha by JayMontana36
 TITLE %title%
+set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
+
 :vBoxLocationInit
 echo Starting %title%...
-C:
-IF NOT EXIST "C:\Program Files\Oracle\Virtualbox" goto vBoxLocateFailed
-cd "C:\Program Files\Oracle\Virtualbox"
+IF NOT EXIST "%vBoxInstallLocation%" goto vBoxLocateFailed
+cd /d "%vBoxInstallLocation%"
 IF NOT EXIST "VBoxManage.exe" goto vBoxLocateFailed
 
 :ModifyVM
@@ -16,15 +17,15 @@ echo.
 VBoxManage list vms
 echo.
 set /p VMname="Which vBox VM do you wish to modify? "
-@REM for /f "tokens=1 delims=*{" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
-@REM Set _VMname=%_VMname:"=%
+@REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
+@REM set _VMname=%_VMname:"=%
 @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
-set /p SYSven="New System Manufacturer? "
-set /p SYSprod="New System Model? "
-set /p SYSdate="New BIOS Date (in M/D/YYYY or MM/DD/YYYY)? "
 for /f "tokens=1 delims=firmware=" %%F in ('"VBoxManage showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
 IF [%_vmMode%] EQU [BIOS] set fw=pcbios
 IF [%_vmMode%] EQU [EFI] set fw=efi
+set /p SYSven="New System Manufacturer? "
+set /p SYSprod="New System Model? "
+set /p SYSdate="New BIOS Date (in M/D/YYYY or MM/DD/YYYY)? "
 
 :ModifyVMsummary
 cls
@@ -43,11 +44,11 @@ pause
 echo Force closing any and all VirtualBox VM windows...
 taskkill /F /IM VirtualBox.exe
 taskkill /F /IM VBoxSVC.exe
-
-:ModifyVMproperties
 cls
 echo %title%
 echo.
+
+:ModifyVMprocess
 echo Suppressing VM Indications in TaskManager and other areas for "%VMname%"
 echo ...
 VBoxManage modifyvm "%VMname%" --paravirtprovider none
@@ -79,26 +80,26 @@ echo Complete!
 echo.
 echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!
 echo.
-start VirtualBox.exe
-VBoxManage startvm %vmname% --type gui
 pause
-goto end
-
-:exit
+echo.
+VBoxManage startvm %vmname% --type gui
 start VirtualBox.exe
-exit
+goto end
 
 :vBoxLocateFailed
 cls
 echo Failed to start %title%:
-echo VirtualBox was not found on this system in the default install location (Manually selecting it's location is not a thing yet).
-echo Please install/reinstall VirtualBox in the default install location, or create a symlink/shortcut in the default install location.
-pause
-exit
+echo.
+echo VirtualBox was not found in directory "%vBoxInstallLocation%"
+echo.
+set /p vBoxInstallLocation="Please provide the location of your current VirtualBox Installation: "
+goto vBoxLocationInit
 
 :end
 cls
-echo vBox VM System Information Modifier is created and maintained by JayMontana36
+echo %title%
+echo.
+echo vBoxSysInfoMod - VirtualBox VM System Information Modifier was originally created and maintained by JayMontana36.
 echo.
 echo Official Website: https://sites.google.com/site/jaymontana36jasen - Bookmark my website for easy access if you'd like,
 echo as I will be updating it in the future with new scripts, content, and programs. Site - https://goo.gl/3SCLQN
@@ -106,10 +107,13 @@ echo.
 echo YouTube: https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA - Please subscribe if you haven't already, as 
 echo I'll be uploading Tutorials and other content in the future. [JM36] JayMontana36 TV - https://goo.gl/aMknzL
 echo.
-echo So what do we do now? You may modify another VM by typing "modifyvm", you may view my website by typing "site", you may open my YouTube channel by typing "yt", or exit with "exit" (or of course, type something invalid to exit)
+echo So what do we do now? You may modify another VM by typing "modifyvm", open my website by typing "site", open my YouTube channel by typing "yt", or exit with "exit" (or of course, type something invalid to exit)
 echo.
 set /p sel="%username%@%computername%>"
 goto %sel%
+
+:exit
+exit
 
 :site
 start https://sites.google.com/site/jaymontana36jasen
