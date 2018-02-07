@@ -1,6 +1,6 @@
 @echo off
 :PreInit
-set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0 Experimental Alpha by JayMontana36
+set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0 Final by JayMontana36
 TITLE %title%
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
