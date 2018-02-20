@@ -1,6 +1,6 @@
 @echo off
 :PreInit
-set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0 Final by JayMontana36
+set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0-GUI Beta by JayMontana36
 TITLE %title%
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
@@ -87,12 +87,14 @@ start VirtualBox.exe
 goto end
 
 :vBoxLocateFailed
-cls
-echo Failed to start %title%:
-echo.
-echo VirtualBox was not found in directory "%vBoxInstallLocation%"
-echo.
-set /p vBoxInstallLocation="Please provide the location of your current VirtualBox Installation: "
+@REM cls
+@REM echo Failed to start %title%:
+@REM echo.
+@REM echo VirtualBox was not found in directory "%vBoxInstallLocation%"
+@REM echo.
+@REM set /p vBoxInstallLocation="Please provide the location of your current VirtualBox Installation: "
+messagebox.exe "%title%" "VirtualBox could not be located; please select the location of your current VirtualBox installation within the following dialog.
+for /f %%i in ('folderbrowse.exe "%title% - Please provide the location of your current VirtualBox Installation:"') do set vBoxInstallLocation=%%i
 goto vBoxLocationInit
 
 :end
