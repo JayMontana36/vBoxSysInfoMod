@@ -5,7 +5,7 @@ TITLE %title%
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
 :vBoxLocationInit
-echo Starting %title%...
+@REM echo Starting %title%...
 IF NOT EXIST "%vBoxInstallLocation%" goto vBoxLocateFailed
 cd /d "%vBoxInstallLocation%"
 IF NOT EXIST "VBoxManage.exe" goto vBoxLocateFailed
