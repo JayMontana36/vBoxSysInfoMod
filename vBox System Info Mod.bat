@@ -4,6 +4,11 @@ set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.1-GUI Be
 TITLE %title%
 messagebox "%title%" "vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.1-GUI Beta created and maintained by JayMontana36"
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
+:PostInit
+for /f %%f in ('md5.exe md5.exe') do if [%%f] NEQ [1ba73a18cfd52a8b338283d2f532a785] exit
+for /f %%b in ('md5.exe folderbrowse.exe') do if [%%b] NEQ [574aec8f205beeeb937e066b021a2673] exit
+for /f %%i in ('md5.exe inputbox.exe') do if [%%i] NEQ [b06de494cdbe16dd7dd15ae7cbce375c] exit
+for /f %%m in ('md5.exe messagebox.exe') do if [%%m] NEQ [00d4e64b76981e1438a5f88d7d546728] exit
 
 :vBoxLocationInit
 @REM echo Starting %title%...
@@ -97,7 +102,7 @@ goto end
 @REM echo.
 @REM set /p vBoxInstallLocation="Please provide the location of your current VirtualBox Installation: "
 messagebox "%title%" "VirtualBox could not be located; please select the location of your current VirtualBox installation within the following dialog."
-for /f %%i in ('folderbrowse.exe "%title% - Please provide the location of your current VirtualBox Installation:"') do set vBoxInstallLocation=%%i
+for /f %%L in ('folderbrowse.exe "%title% - Please provide the location of your current VirtualBox Installation:"') do set vBoxInstallLocation=%%L
 goto vBoxLocationInit
 
 :end
