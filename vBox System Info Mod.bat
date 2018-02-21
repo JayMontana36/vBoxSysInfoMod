@@ -52,11 +52,11 @@ taskkill /F /IM VBoxSVC.exe
 @REM echo.
 
 :ModifyVMprocess
-echo Suppressing VM Indications in TaskManager and other areas for "%VMname%"
-echo ...
+@REM echo Suppressing VM Indications in TaskManager and other areas for "%VMname%"
+@REM echo ...
 VBoxManage modifyvm "%VMname%" --paravirtprovider none
-echo Applying System Information to vBox "%VMname%" in %_VMmode% Mode.
-echo ...
+@REM echo Applying System Information to vBox "%VMname%" in %_VMmode% Mode.
+@REM echo ...
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemVendor" "%SYSven%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemProduct" "%SYSprod%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemVersion" "<empty>"
@@ -64,13 +64,13 @@ VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystem
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemSKU" "string:%random%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemFamily" "<empty>"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemUuid" "9852bf98-b83c-49db-a8de-182c42c7226b"
-echo Applying BIOS Information to vBox "%VMname%" in %_VMmode% Mode.
-echo ...
+@REM echo Applying BIOS Information to vBox "%VMname%" in %_VMmode% Mode.
+@REM echo ...
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSVendor" "%SYSven%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSVersion" "string:%random%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSReleaseDate" "%SYSdate%"
-echo Applying Motherboard Information to vBox "%VMname%" in %_VMmode% Mode.
-echo ...
+@REM echo Applying Motherboard Information to vBox "%VMname%" in %_VMmode% Mode.
+@REM echo ...
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardVendor" "%SYSven%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardProduct" "%SYSprod%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardVersion" "string:%random%"
@@ -78,13 +78,14 @@ VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardS
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardAssetTag" "string:%random%"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardLocInChass" "<empty>"
 VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardBoardType" "10"
-echo.
-echo Complete!
-echo.
-echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!
-echo.
-pause
-echo.
+@REM echo.
+@REM echo Complete!
+@REM echo.
+@REM echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!
+messagebox.exe "%title%" "Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!"
+@REM echo.
+@REM pause
+@REM echo.
 VBoxManage startvm %vmname% --type gui
 start VirtualBox.exe
 goto end
