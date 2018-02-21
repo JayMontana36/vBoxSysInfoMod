@@ -44,12 +44,12 @@ messagebox.exe "%title%" "Ready to modify vBox VM '%VMname%' whenever you're rea
 messagebox.exe "%title%" "Warning: Before continuing, please shutdown any/all vBox VMs that you care about; failure to do so may result in the loss of data and/or data corruption for any running VMs."
 
 :ModifyVMtaskkill
-echo Force closing any and all VirtualBox VM windows...
+@REM echo Force closing any and all VirtualBox VM windows...
 taskkill /F /IM VirtualBox.exe
 taskkill /F /IM VBoxSVC.exe
-cls
-echo %title%
-echo.
+@REM cls
+@REM echo %title%
+@REM echo.
 
 :ModifyVMprocess
 echo Suppressing VM Indications in TaskManager and other areas for "%VMname%"
