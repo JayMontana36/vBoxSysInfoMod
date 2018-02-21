@@ -40,8 +40,8 @@ for /f %%d in ('inputbox.exe "%title%" "New BIOS Date (in M/D/YYYY or MM/DD/YYYY
 @REM echo Warning: Before continuing, please shutdown any/all vBox VMs you care about;
 @REM echo failure to do so may result in data loss or data corruption for running VMs.
 @REM pause
-messagebox.exe "%title%" "Ready to modify vBox VM '%VMname%' whenever you're ready; %_VMmode% Information will be changed to '%SYSven% %SYSprod%', and the %_VMmode% Date will be changed to '%SYSdate%'.
-messagebox.exe "%title%" "Warning: Before continuing, please shutdown any/all vBox VMs that you care about; failure to do so may result in the loss of data and/or data corruption for any running VMs."
+messagebox "%title%" "Ready to modify vBox VM '%VMname%' whenever you're ready; %_VMmode% Information will be changed to '%SYSven% %SYSprod%', and the %_VMmode% Date will be changed to '%SYSdate%'."
+messagebox "%title%" "Warning: Before continuing, please shutdown any/all vBox VMs that you care about; failure to do so may result in the loss of data and/or data corruption for any running VMs."
 
 :ModifyVMtaskkill
 @REM echo Force closing any and all VirtualBox VM windows...
@@ -82,7 +82,7 @@ VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardB
 @REM echo Complete!
 @REM echo.
 @REM echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!
-messagebox.exe "%title%" "Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!"
+messagebox "%title%" "Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!"
 @REM echo.
 @REM pause
 @REM echo.
@@ -97,7 +97,7 @@ goto end
 @REM echo VirtualBox was not found in directory "%vBoxInstallLocation%"
 @REM echo.
 @REM set /p vBoxInstallLocation="Please provide the location of your current VirtualBox Installation: "
-messagebox.exe "%title%" "VirtualBox could not be located; please select the location of your current VirtualBox installation within the following dialog.
+messagebox "%title%" "VirtualBox could not be located; please select the location of your current VirtualBox installation within the following dialog.
 for /f %%i in ('folderbrowse.exe "%title% - Please provide the location of your current VirtualBox Installation:"') do set vBoxInstallLocation=%%i
 goto vBoxLocationInit
 
