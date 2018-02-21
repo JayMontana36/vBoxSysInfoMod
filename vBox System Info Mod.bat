@@ -87,7 +87,7 @@ messagebox "%title%" "Successfully applied vBox System Information to vBox VM "%
 @REM pause
 @REM echo.
 %vBox% startvm %vmname% --type gui
-start VirtualBox.exe
+start %vBoxInstallLocation%\VirtualBox.exe
 goto end
 
 :vBoxLocateFailed
@@ -97,7 +97,7 @@ goto end
 @REM echo VirtualBox was not found in directory "%vBoxInstallLocation%"
 @REM echo.
 @REM set /p vBoxInstallLocation="Please provide the location of your current VirtualBox Installation: "
-messagebox "%title%" "VirtualBox could not be located; please select the location of your current VirtualBox installation within the following dialog.
+messagebox "%title%" "VirtualBox could not be located; please select the location of your current VirtualBox installation within the following dialog."
 for /f %%i in ('folderbrowse.exe "%title% - Please provide the location of your current VirtualBox Installation:"') do set vBoxInstallLocation=%%i
 goto vBoxLocationInit
 
