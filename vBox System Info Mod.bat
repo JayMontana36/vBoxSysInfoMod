@@ -22,9 +22,8 @@ for /f %%n in ('inputbox.exe "%title%" "Enter the name of the vBox VM that you w
 @REM @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
 for /f "tokens=1 delims=firmware=" %%F in ('"VBoxManage showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
 IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi)
-IF [%fw%] EQU [pcbios] (goto ModifyVMinfoCollect) else IF [%fw%] EQU [efi] (goto ModifyVMinfoCollect) else goto ModifyVM
-
-:ModifyVMinfoCollect
+IF [%fw%] EQU [pcbios] (goto ModifyVMp2) else IF [%fw%] EQU [efi] (goto ModifyVMp2) else goto ModifyVM
+:ModifyVMp2
 for /f %%v in ('inputbox.exe "%title%" "New System Manufacturer?" ""') do set SYSven=%%v
 for /f %%p in ('inputbox.exe "%title%" "New System Model?" ""') do set SYSprod=%%p
 for /f %%d in ('inputbox.exe "%title%" "New BIOS Date (in M/D/YYYY or MM/DD/YYYY)?" ""') do set SYSdate=%%d
