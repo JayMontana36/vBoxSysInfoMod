@@ -2,12 +2,12 @@
 :PreInit
 set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0-GUI Beta by JayMontana36
 TITLE %title%
+messagebox "%title%" "vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0-GUI Beta created and maintained by JayMontana36"
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
 :vBoxLocationInit
 @REM echo Starting %title%...
-IF NOT EXIST "%vBoxInstallLocation%" (goto vBoxLocateFailed) else IF NOT EXIST "%vBoxInstallLocation%\VBoxManage.exe" (goto vBoxLocateFailed)
-set vBox="%vBoxInstallLocation%\VBoxManage.exe"
+IF NOT EXIST "%vBoxInstallLocation%" (goto vBoxLocateFailed) else IF NOT EXIST "%vBoxInstallLocation%\VBoxManage.exe" (goto vBoxLocateFailed) else set vBox="%vBoxInstallLocation%\VBoxManage.exe"
 
 :ModifyVM
 @REM cls
@@ -21,9 +21,7 @@ for /f %%n in ('inputbox.exe "%title%" "Enter the name of the vBox VM that you w
 @REM @REM set _VMname=%_VMname:"=%
 @REM @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
 for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
-IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi)
-IF [%fw%] EQU [pcbios] (goto ModifyVMp2) else IF [%fw%] EQU [efi] (goto ModifyVMp2) else goto ModifyVM
-:ModifyVMp2
+IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi) else (goto ModifyVM)
 for /f %%v in ('inputbox.exe "%title%" "New System Manufacturer?" ""') do set SYSven=%%v
 for /f %%p in ('inputbox.exe "%title%" "New System Model?" ""') do set SYSprod=%%p
 for /f %%d in ('inputbox.exe "%title%" "New BIOS Date (in M/D/YYYY or MM/DD/YYYY)?" ""') do set SYSdate=%%d
@@ -42,6 +40,7 @@ for /f %%d in ('inputbox.exe "%title%" "New BIOS Date (in M/D/YYYY or MM/DD/YYYY
 @REM pause
 messagebox "%title%" "Ready to modify vBox VM '%VMname%' whenever you're ready; %_VMmode% Information will be changed to '%SYSven% %SYSprod%', and the %_VMmode% Date will be changed to '%SYSdate%'."
 messagebox "%title%" "Warning: Before continuing, please shutdown any/all vBox VMs that you care about; failure to do so may result in the loss of data and/or data corruption for any running VMs."
+messagebox "%title%" "Whenever you're ready, you may push the 'OK' button to continue..."
 
 :ModifyVMtaskkill
 @REM echo Force closing any and all VirtualBox VM windows...
@@ -117,7 +116,6 @@ goto vBoxLocationInit
 @REM echo.
 @REM set /p sel="%username%@%computername%>"
 @REM goto %sel%
-exit
 
 :exit
 exit
