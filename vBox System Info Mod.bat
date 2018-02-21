@@ -82,12 +82,12 @@ taskkill /F /IM VBoxSVC.exe
 @REM echo Complete!
 @REM echo.
 @REM echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!
-messagebox "%title%" "Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMmode% Mode!"
+messagebox "%title%" "Successfully applied vBox System Information to vBox VM '%VMname%' in %_VMmode% Mode!"
 @REM echo.
 @REM pause
 @REM echo.
 %vBox% startvm %vmname% --type gui
-start %vBoxInstallLocation%\VirtualBox.exe
+@REM start /MIN "%vBoxInstallLocation%\VirtualBox.exe"
 goto end
 
 :vBoxLocateFailed
@@ -116,7 +116,8 @@ goto vBoxLocationInit
 @REM echo So what do we do now? You may modify another VM by typing "modifyvm", open my website by typing "site", open my YouTube channel by typing "yt", or exit with "exit" (or of course, type something invalid to exit)
 @REM echo.
 @REM set /p sel="%username%@%computername%>"
-goto %sel%
+@REM goto %sel%
+exit
 
 :exit
 exit
