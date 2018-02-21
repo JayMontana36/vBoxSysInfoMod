@@ -102,20 +102,20 @@ for /f %%i in ('folderbrowse.exe "%title% - Please provide the location of your 
 goto vBoxLocationInit
 
 :end
-cls
-echo %title%
-echo.
-echo vBoxSysInfoMod - VirtualBox VM System Information Modifier was originally created and maintained by JayMontana36.
-echo.
-echo Official Website: https://sites.google.com/site/jaymontana36jasen - Bookmark my website for easy access if you'd like,
-echo as I will be updating it in the future with new scripts, content, and programs. Site - https://goo.gl/3SCLQN
-echo.
-echo YouTube: https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA - Please subscribe if you haven't already, as 
-echo I'll be uploading Tutorials and other content in the future. [JM36] JayMontana36 TV - https://goo.gl/aMknzL
-echo.
-echo So what do we do now? You may modify another VM by typing "modifyvm", open my website by typing "site", open my YouTube channel by typing "yt", or exit with "exit" (or of course, type something invalid to exit)
-echo.
-set /p sel="%username%@%computername%>"
+@REM cls
+@REM echo %title%
+@REM echo.
+@REM echo vBoxSysInfoMod - VirtualBox VM System Information Modifier was originally created and maintained by JayMontana36.
+@REM echo.
+@REM echo Official Website: https://sites.google.com/site/jaymontana36jasen - Bookmark my website for easy access if you'd like,
+@REM echo as I will be updating it in the future with new scripts, content, and programs. Site - https://goo.gl/3SCLQN
+@REM echo.
+@REM echo YouTube: https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA - Please subscribe if you haven't already, as 
+@REM echo I'll be uploading Tutorials and other content in the future. [JM36] JayMontana36 TV - https://goo.gl/aMknzL
+@REM echo.
+@REM echo So what do we do now? You may modify another VM by typing "modifyvm", open my website by typing "site", open my YouTube channel by typing "yt", or exit with "exit" (or of course, type something invalid to exit)
+@REM echo.
+@REM set /p sel="%username%@%computername%>"
 goto %sel%
 
 :exit
