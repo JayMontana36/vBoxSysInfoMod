@@ -6,26 +6,28 @@ set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
 :vBoxLocationInit
 @REM echo Starting %title%...
-IF NOT EXIST "%vBoxInstallLocation%" goto vBoxLocateFailed
-cd /d "%vBoxInstallLocation%"
+IF NOT EXIST "%vBoxInstallLocation%" (goto vBoxLocateFailed) else cd /d "%vBoxInstallLocation%"
 IF NOT EXIST "VBoxManage.exe" goto vBoxLocateFailed
 
 :ModifyVM
-cls
-echo %title%
-echo.
-VBoxManage list vms
-echo.
-set /p VMname="Which vBox VM do you wish to modify? "
-@REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
-@REM set _VMname=%_VMname:"=%
-@REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
+@REM cls
+@REM echo %title%
+@REM echo.
+@REM VBoxManage list vms
+@REM echo.
+@REM set /p VMname="Which vBox VM do you wish to modify? "
+for /f %%n in ('inputbox.exe "%title%" "Enter the name of the vBox VM that you wish to modify" ""') do set VMname=%%n
+@REM @REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
+@REM @REM set _VMname=%_VMname:"=%
+@REM @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
 for /f "tokens=1 delims=firmware=" %%F in ('"VBoxManage showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
-IF [%_vmMode%] EQU [BIOS] set fw=pcbios
-IF [%_vmMode%] EQU [EFI] set fw=efi
-set /p SYSven="New System Manufacturer? "
-set /p SYSprod="New System Model? "
-set /p SYSdate="New BIOS Date (in M/D/YYYY or MM/DD/YYYY)? "
+IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi)
+IF [%fw%] EQU [pcbios] (goto ModifyVMinfoCollect) else IF [%fw%] EQU [efi] (goto ModifyVMinfoCollect) else goto ModifyVM
+
+:ModifyVMinfoCollect
+for /f %%v in ('inputbox.exe "%title%" "New System Manufacturer?" ""') do set SYSven=%%v
+for /f %%p in ('inputbox.exe "%title%" "New System Model?" ""') do set SYSprod=%%p
+for /f %%d in ('inputbox.exe "%title%" "New BIOS Date (in M/D/YYYY or MM/DD/YYYY)?" ""') do set SYSdate=%%d
 
 :ModifyVMsummary
 cls
