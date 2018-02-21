@@ -29,17 +29,19 @@ for /f %%p in ('inputbox.exe "%title%" "New System Model?" ""') do set SYSprod=%
 for /f %%d in ('inputbox.exe "%title%" "New BIOS Date (in M/D/YYYY or MM/DD/YYYY)?" ""') do set SYSdate=%%d
 
 :ModifyVMsummary
-cls
-echo %title%
-echo.
-echo Summary:
-echo Ready to modify vBox VM "%VMname%" whenever you're ready.
-echo %_VMmode% Information will be changed to "%SYSven% %SYSprod%"
-echo %_VMmode% Date will be changed to "%SYSdate%"
-echo.
-echo Warning: Before continuing, please shutdown any/all vBox VMs you care about;
-echo failure to do so may result in data loss or data corruption for running VMs.
-pause
+@REM cls
+@REM echo %title%
+@REM echo.
+@REM echo Summary:
+@REM echo Ready to modify vBox VM "%VMname%" whenever you're ready.
+@REM echo %_VMmode% Information will be changed to "%SYSven% %SYSprod%"
+@REM echo %_VMmode% Date will be changed to "%SYSdate%"
+@REM echo.
+@REM echo Warning: Before continuing, please shutdown any/all vBox VMs you care about;
+@REM echo failure to do so may result in data loss or data corruption for running VMs.
+@REM pause
+messagebox.exe "%title%" "Ready to modify vBox VM '%VMname%' whenever you're ready; %_VMmode% Information will be changed to '%SYSven% %SYSprod%', and the %_VMmode% Date will be changed to '%SYSdate%'.
+messagebox.exe "%title%" "Warning: Before continuing, please shutdown any/all vBox VMs that you care about; failure to do so may result in the loss of data and/or data corruption for any running VMs."
 
 :ModifyVMtaskkill
 echo Force closing any and all VirtualBox VM windows...
