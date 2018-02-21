@@ -1,28 +1,25 @@
 @echo off
 :PreInit
-set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.0 Final by JayMontana36
+set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.1 Final by JayMontana36
 TITLE %title%
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
 :vBoxLocationInit
 echo Starting %title%...
-IF NOT EXIST "%vBoxInstallLocation%" goto vBoxLocateFailed
-cd /d "%vBoxInstallLocation%"
-IF NOT EXIST "VBoxManage.exe" goto vBoxLocateFailed
+IF NOT EXIST "%vBoxInstallLocation%" (goto vBoxLocateFailed) else IF NOT EXIST "%vBoxInstallLocation%\VBoxManage.exe" (goto vBoxLocateFailed) else set vBox="%vBoxInstallLocation%\VBoxManage.exe"
 
 :ModifyVM
 cls
 echo %title%
 echo.
-VBoxManage list vms
+%vBox% list vms
 echo.
 set /p VMname="Which vBox VM do you wish to modify? "
 @REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
 @REM set _VMname=%_VMname:"=%
 @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
-for /f "tokens=1 delims=firmware=" %%F in ('"VBoxManage showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
-IF [%_vmMode%] EQU [BIOS] set fw=pcbios
-IF [%_vmMode%] EQU [EFI] set fw=efi
+for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
+IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi) else (goto ModifyVM)
 set /p SYSven="New System Manufacturer? "
 set /p SYSprod="New System Model? "
 set /p SYSdate="New BIOS Date (in M/D/YYYY or MM/DD/YYYY)? "
@@ -51,30 +48,30 @@ echo.
 :ModifyVMprocess
 echo Suppressing VM Indications in TaskManager and other areas for "%VMname%"
 echo ...
-VBoxManage modifyvm "%VMname%" --paravirtprovider none
+%vBox% modifyvm "%VMname%" --paravirtprovider none
 echo Applying System Information to vBox "%VMname%" in %_VMmode% Mode.
 echo ...
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemVendor" "%SYSven%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemProduct" "%SYSprod%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemVersion" "<empty>"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemSerial" "string:%random%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemSKU" "string:%random%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemFamily" "<empty>"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemUuid" "9852bf98-b83c-49db-a8de-182c42c7226b"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemVendor" "%SYSven%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemProduct" "%SYSprod%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemVersion" "<empty>"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemSerial" "string:%random%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemSKU" "string:%random%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemFamily" "<empty>"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiSystemUuid" "9852bf98-b83c-49db-a8de-182c42c7226b"
 echo Applying BIOS Information to vBox "%VMname%" in %_VMmode% Mode.
 echo ...
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSVendor" "%SYSven%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSVersion" "string:%random%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSReleaseDate" "%SYSdate%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSVendor" "%SYSven%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSVersion" "string:%random%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBIOSReleaseDate" "%SYSdate%"
 echo Applying Motherboard Information to vBox "%VMname%" in %_VMmode% Mode.
 echo ...
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardVendor" "%SYSven%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardProduct" "%SYSprod%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardVersion" "string:%random%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardSerial" "string:%random%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardAssetTag" "string:%random%"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardLocInChass" "<empty>"
-VBoxManage setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardBoardType" "10"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardVendor" "%SYSven%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardProduct" "%SYSprod%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardVersion" "string:%random%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardSerial" "string:%random%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardAssetTag" "string:%random%"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardLocInChass" "<empty>"
+%vBox% setextradata "%VMname%" "VBoxInternal/Devices/%fw%/0/Config/DmiBoardBoardType" "10"
 echo.
 echo Complete!
 echo.
@@ -82,8 +79,8 @@ echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMm
 echo.
 pause
 echo.
-VBoxManage startvm %vmname% --type gui
-start VirtualBox.exe
+%vBox% startvm %vmname% --type gui
+@REM start /MIN VirtualBox.exe
 goto end
 
 :vBoxLocateFailed
