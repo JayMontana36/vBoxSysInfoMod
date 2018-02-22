@@ -15,9 +15,8 @@ echo.
 %vBox% list vms
 echo.
 set /p VMname="Which vBox VM do you wish to modify? "
-@REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
-@REM set _VMname=%_VMname:"=%
-@REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
+@REM for /f "tokens=1 delims={" %%F in ('"%vBox% list vms | findstr /C:"%VMname%""') do set _VMname=%%F
+@REM IF ["%_VMname%"] NEQ [\"%VMname%\"] goto ModifyVM
 for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo "%VMname%" --machinereadable | findstr firmware"') do set _vmMode=%%~F
 IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi) else (goto ModifyVM)
 set /p SYSven="New System Manufacturer? "
@@ -80,7 +79,7 @@ echo.
 pause
 echo.
 %vBox% startvm %vmname% --type gui
-@REM start /MIN VirtualBox.exe
+@REM start /MIN "%vBoxInstallLocation%\VirtualBox.exe"
 goto end
 
 :vBoxLocateFailed
