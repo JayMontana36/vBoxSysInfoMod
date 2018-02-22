@@ -1,6 +1,6 @@
 @echo off
 :PreInit
-set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.1 Final by JayMontana36
+set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.2 Final by JayMontana36
 TITLE %title%
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
@@ -18,7 +18,7 @@ set /p VMname="Which vBox VM do you wish to modify? "
 @REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
 @REM set _VMname=%_VMname:"=%
 @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
-for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
+for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo "%VMname%" --machinereadable | findstr firmware"') do set _vmMode=%%~F
 IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi) else (goto ModifyVM)
 set /p SYSven="New System Manufacturer? "
 set /p SYSprod="New System Model? "
