@@ -17,8 +17,9 @@ IF NOT EXIST "%vBoxInstallLocation%" (goto vBoxLocateFailed) else IF NOT EXIST "
 @REM echo.
 @REM set /p VMname="Which vBox VM do you wish to modify? "
 for /f %%n in ('inputbox.exe "%title%" "Enter the name of the vBox VM that you wish to modify" ""') do set VMname=%%n
-@REM @REM for /f "tokens=1 delims={" %%F in ('"%vBox% list vms | findstr /C:"%VMname%""') do set _VMname=%%F
-@REM @REM IF ["%_VMname%"] NEQ [\"%VMname%\"] goto ModifyVM
+@REM @REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
+@REM @REM set _VMname=%_VMname:"=%
+@REM @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
 for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo "%VMname%" --machinereadable | findstr firmware"') do set _vmMode=%%~F
 IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi) else (goto ModifyVM)
 for /f %%v in ('inputbox.exe "%title%" "New System Manufacturer?" ""') do set SYSven=%%v
