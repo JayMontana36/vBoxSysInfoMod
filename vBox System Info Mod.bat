@@ -1,8 +1,8 @@
 @echo off
 :PreInit
-set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.1-GUI Beta by JayMontana36
+set title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.2-GUI Beta by JayMontana36
 TITLE %title%
-messagebox "%title%" "vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.1-GUI Beta created and maintained by JayMontana36"
+messagebox "%title%" "vBoxSysInfoMod - VirtualBox VM System Information Modifier v5.2-GUI Beta created and maintained by JayMontana36"
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 
 :vBoxLocationInit
@@ -20,7 +20,7 @@ for /f %%n in ('inputbox.exe "%title%" "Enter the name of the vBox VM that you w
 @REM @REM for /f "tokens=1 delims=" %%F in ('"VBoxManage list vms | findstr %VMname%"') do set _VMname=%%~F
 @REM @REM set _VMname=%_VMname:"=%
 @REM @REM IF [%_VMname%] NEQ [%VMname%] goto ModifyVM
-for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo %VMname% --machinereadable | findstr firmware"') do set _vmMode=%%~F
+for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo "%VMname%" --machinereadable | findstr firmware"') do set _vmMode=%%~F
 IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=efi) else (goto ModifyVM)
 for /f %%v in ('inputbox.exe "%title%" "New System Manufacturer?" ""') do set SYSven=%%v
 for /f %%p in ('inputbox.exe "%title%" "New System Model?" ""') do set SYSprod=%%p
