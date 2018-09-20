@@ -1,6 +1,6 @@
 @echo off
 :_PreInit
-set _title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v6.0 Final by JayMontana36
+set _title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v6.1rc1 by JayMontana36
 title %_title%
 set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
 set _h=%time:~0,2%
@@ -44,7 +44,7 @@ echo.
 echo.
 %vBox% list vms
 echo.
-set /p VMname="Which vBox VM do you want me to %_pinitsel%, %username%? "
+set /p VMname="Which vBox VM would you like me to %_pinitsel%, %username%? [Last: '%VMname%'] "
 @REM for /f "tokens=1 delims={" %%F in ('"%vBox% list vms | findstr /C:"%VMname%""') do set _VMname=%%F
 @REM IF ["%_VMname%"] NEQ [\"%VMname%\"] goto ModifyVM
 for /f "tokens=1 delims=firmware=" %%F in ('"%vBox% showvminfo "%VMname%" --machinereadable | findstr firmware"') do set _vmMode=%%~F
@@ -52,9 +52,14 @@ IF [%_vmMode%] EQU [BIOS] (set fw=pcbios) else IF [%_vmMode%] EQU [EFI] (set fw=
 goto _%_pinitsel%1
 
 :_Modify1
-set /p SYSven="New System Manufacturer? "
-set /p SYSprod="New System Model? "
-set /p SYSdate="New BIOS Date (in M/D/YYYY or MM/DD/YYYY)? "
+echo.
+set /p SYSven="Alright, what would you like the System Manufacturer to appear as, %username%? [Last: '%SYSven%'] "
+echo.
+set /p SYSprod="Alright, now how about the System Model, %username%? [Last: '%SYSprod%'] "
+echo.
+echo Okay, this one's optional %username%: The System BIOS Build Date, which will default to December 1, 2006 if left
+echo blank; feel free to leave this field blank if you wish to use the vBox default (or you don't care). MM/DD/YYYY format.
+set /p SYSdate="System BIOS Build Date? [Default: '12/01/2006' - Last: '%SYSdate%'] "
 
 :_Reset1
 :_ModifyVMsummary
@@ -116,8 +121,8 @@ echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMm
 echo.
 pause
 echo.
-%vBox% startvm "%vmname%" --type gui
-@REM start /MIN "%vBoxInstallLocation%\VirtualBox.exe"
+@REM start /MIN "" "%vBoxInstallLocation%\VirtualBox.exe"
+%vBox% startvm "%VMname%" --type gui
 goto credits
 
 :_ResetProcess
@@ -170,7 +175,8 @@ echo Successfully reset all vBox System Information for vBox VM "%VMname%"!
 echo.
 pause
 echo.
-%vBox% startvm "%vmname%" --type gui
+@REM start /MIN "" "%vBoxInstallLocation%\VirtualBox.exe"
+%vBox% startvm "%VMname%" --type gui
 goto credits
 
 :_vBoxLocateFailed
@@ -202,9 +208,9 @@ echo.
 echo.
 echo.
 echo.
-echo YouTube: https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA - Subscribe if you'd like to support my channel, I
-echo may upload more and/or new tutorials from time to time as well as other content in the future (though it'll more than
-echo likely be mostly games). [JM36] JayMontana36 Gaming ^& Tech TV - https://goo.gl/aMknzL
+echo YouTube: https://www.youtube.com/channel/UCq-L3aIwJD3tCpMEawdgW7Q - Subscribe if you'd like to support my channel, I
+echo will be uploading more and/or new tutorials from time to time as well as some other tech related content in the future.
+echo JM36's Tech TV - https://goo.gl/QiKWrj
 echo.
 echo.
 echo.
@@ -231,9 +237,26 @@ goto credits
 
 :YT
 :YouTube
-start https://www.youtube.com/channel/UCMbJVrfppFn5aAz5C50LoZA
+start https://www.youtube.com/channel/UCq-L3aIwJD3tCpMEawdgW7Q
 goto credits
 
 :Discord
 start https://discord.gg/23SckZN
 goto credits
+
+:License
+echo This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+echo To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or
+echo send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+pause
+goto credits
+
+:Debug
+echo This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+echo To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or
+echo send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+pause
+start http://creativecommons.org/licenses/by-nc-sa/4.0/
+pause
+@echo on
+goto _PreInit
