@@ -116,7 +116,7 @@ echo Successfully applied vBox System Information to vBox VM "%VMname%" in %_VMm
 echo.
 pause
 echo.
-%vBox% startvm %vmname% --type gui
+%vBox% startvm "%vmname%" --type gui
 @REM start /MIN "%vBoxInstallLocation%\VirtualBox.exe"
 goto credits
 
@@ -170,7 +170,7 @@ echo Successfully reset all vBox System Information for vBox VM "%VMname%"!
 echo.
 pause
 echo.
-%vBox% startvm %vmname% --type gui
+%vBox% startvm "%vmname%" --type gui
 goto credits
 
 :_vBoxLocateFailed
