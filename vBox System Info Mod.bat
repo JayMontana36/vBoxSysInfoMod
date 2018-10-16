@@ -2,7 +2,7 @@
 :_PreInit
 set _title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v6.1rc1 by JayMontana36
 title %_title%
-set vBoxInstallLocation=C:\Program Files\Oracle\Virtualbox
+set vBoxInstallLocation=%VBOX_MSI_INSTALL_PATH%
 set _h=%time:~0,2%
 IF %_h% GEQ 6 IF %_h% LEQ 11 (set "_tod=Morning") else IF %_h% GEQ 12 IF %_h% LEQ 16 (set "_tod=Afternoon") else IF %_h% GEQ 17 IF %_h% LEQ 19 (set "_tod=Evening") else IF %_h% GEQ 20 IF %_h% LEQ 23 (set "_tod=Night") else IF %_h% GEQ 0 IF %_h% LEQ 5 (set "_tod=Night")
 IF %_h% GEQ 3 IF %_h% LEQ 17 (set "_t=today") else IF %_h% GEQ 18 IF %_h% LEQ 23 (set "_t=tonight") else IF NOT DEFINED _t (set "_t=currently")
