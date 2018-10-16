@@ -20,11 +20,12 @@ echo.
 IF %_h% GEQ 0 IF %_h% LEQ 4 (echo %computername% tells me that you're up rather late for your timezone, though that's really none of my business.) else IF %_h% GEQ 5 IF %_h% LEQ 7 (echo %computername% tells me that you're up rather early for your timezone, though that's really none of my business.) else IF %_h% GEQ 8 IF %_h% LEQ 23 (echo %computername% tells me that you're up rather normally for your timezone, though that's really none of my business.)
 echo.
 echo.
-IF ["%vBoxInstallLocation%"] EQU ["C:\Program Files\Oracle\Virtualbox"] (echo So anyways, what may I do for you %_t% %username%?) else echo So anyways, with all of that other stuff out of the way, what may I do for you %_t% %username%?
-echo I can currently "ModifyVM" which just so happens to be my original and primary purpose as well as "ResetVM" which
-echo as you'd probably both think and/or assume allows me to restore a VM's defaults, though if you'd like I can also
-echo bring up the creator's Discord server with "Discord", bring up the creator's YouTube Channel with "YT" or "YouTube",
-echo or bring up the creator's website with "Site". There's also "Credits", the new end page.
+@REM IF ["%vBoxInstallLocation%"] EQU ["C:\Program Files\Oracle\Virtualbox"] (echo So anyways, what may I do for you %_t% %username%?) else echo So anyways, with all of that other stuff out of the way, what may I do for you %_t% %username%?
+echo So anyways, what may I do for you %_t% %username%? I can currently "ModifyVM" which just so happens to be my original
+echo and primary purpose as well as "ResetVM" which as you'd probably both think and/or assume allows me to restore a VM's
+echo defaults, though if you'd like I can also bring up the creator's Discord server with "Discord", bring up the creator's
+echo YouTube Channel with "YT" or "YouTube", or bring up the creator's website with "Site". There's also "Credits", the new
+echo end page.
 echo.
 echo.
 echo "ModifyVM", "ResetVM", "Credits", "Discord", "YouTube", "YT", "Site", "Exit"
