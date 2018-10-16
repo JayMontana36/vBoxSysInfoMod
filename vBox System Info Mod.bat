@@ -1,13 +1,19 @@
 @echo off
 :_PreInit
+echo Hello %username% and %computername%, I am vBoxSysInfoMod (also known as VirtualBox VM System Information Modifier),
+echo and I am both originally created and maintained by JayMontana36. Also, just as a further and preemptive heads up,
+echo This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+echo To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or
+echo send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+pause
+
+:_Init
 set _title=vBoxSysInfoMod - VirtualBox VM System Information Modifier v6.1rc1 by JayMontana36
 title %_title%
 set vBoxInstallLocation=%VBOX_MSI_INSTALL_PATH%
 set _h=%time:~0,2%
 IF %_h% GEQ 6 IF %_h% LEQ 11 (set "_tod=Morning") else IF %_h% GEQ 12 IF %_h% LEQ 16 (set "_tod=Afternoon") else IF %_h% GEQ 17 IF %_h% LEQ 19 (set "_tod=Evening") else IF %_h% GEQ 20 IF %_h% LEQ 23 (set "_tod=Night") else IF %_h% GEQ 0 IF %_h% LEQ 5 (set "_tod=Night")
 IF %_h% GEQ 3 IF %_h% LEQ 17 (set "_t=today") else IF %_h% GEQ 18 IF %_h% LEQ 23 (set "_t=tonight") else IF NOT DEFINED _t (set "_t=currently")
-
-:_vBoxLocationInit
 echo Starting %_title%...
 IF NOT EXIST "%vBoxInstallLocation%" (goto _vBoxLocateFailed) else IF NOT EXIST "%vBoxInstallLocation%\VBoxManage.exe" (goto _vBoxLocateFailed) else set vBox="%vBoxInstallLocation%\VBoxManage.exe"
 
@@ -187,7 +193,7 @@ echo.
 echo VirtualBox was not found in directory "%vBoxInstallLocation%"
 echo.
 set /p vBoxInstallLocation="Please provide the location of your current VirtualBox Installation: "
-goto _vBoxLocationInit
+goto _Init
 
 :credits
 cls
@@ -260,4 +266,4 @@ pause
 start http://creativecommons.org/licenses/by-nc-sa/4.0/
 pause
 @echo on
-goto _PreInit
+goto _Init
