@@ -1,10 +1,21 @@
 @echo off
 :_PreInit
+title vBoxSysInfoMod by JayMontana36 - Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+echo.
+echo.
 echo Hello %username% and %computername%, I am vBoxSysInfoMod (also known as VirtualBox VM System Information Modifier),
-echo and I am both originally created and maintained by JayMontana36. Also, just as a further and preemptive heads up,
+echo and I am both originally created and maintained by JayMontana36. Also, just as an additional and preemptive heads up:
+echo.
+echo.
 echo This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 echo To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or
 echo send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+echo.
+echo.
+echo One final note, I am donationware; if you find and/or consider me to be useful, please consider donating to JayMontana36
+echo to help support further development (updates, functionality and features). See "Donate" for more information; thanks.
+echo.
+echo.
 pause
 
 :_Init
