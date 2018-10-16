@@ -270,6 +270,7 @@ pause
 goto credits
 
 :Debug
+echo Heads up! Reminder:
 echo This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 echo To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or
 echo send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
